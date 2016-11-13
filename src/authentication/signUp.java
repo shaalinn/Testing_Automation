@@ -41,19 +41,19 @@ public class signUp {
     @Test
     public void testSignUpValid() {
 
-        int noOfVTests = Integer.parseInt(testData.getProperty("noOfVTests"));
-        while (noOfVTests > 0) {
+        int validTests = Integer.parseInt(testData.getProperty("noOfVTests"));
+        while (validTests > 0) {
 
-            log.info("testing valid signUp credentials: " + testData.getProperty("eV" + noOfVTests) + "and" + testData.getProperty("pV" + noOfVTests));
+            log.info("testing valid signUp credentials: " + testData.getProperty("eV" + validTests) + "and" + testData.getProperty("pV" + validTests));
 
 
             driver.get(websiteURL);
 
-            driver.findElement(By.id("user_email")).sendKeys(testData.getProperty("eV" + noOfVTests));
-            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pV" + noOfVTests));
-            driver.findElement(By.id("user_username")).sendKeys(testData.getProperty("pV" + noOfVTests));
+            driver.findElement(By.id("user_email")).sendKeys(testData.getProperty("eV" + validTests));
+            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pV" + validTests));
+            driver.findElement(By.id("user_username")).sendKeys(testData.getProperty("pV" + validTests));
             driver.findElement(By.id("user_signup_submit_2")).click();
-            noOfVTests--;
+            validTests--;
             System.out.println(driver.getTitle());
             assertEquals("Dashboard | Codecademy", driver.getTitle());
         }
@@ -63,25 +63,25 @@ public class signUp {
     @Test
     public void testSignUpInValid() {
 
-        int noOfIVTests = Integer.parseInt(testData.getProperty("noOfIVTests"));
-        while (noOfIVTests > 0) {
+        int inValidTests = Integer.parseInt(testData.getProperty("noOfIVTests"));
+        while (inValidTests > 0) {
 
-            log.info("testing valid signin credentials: " + testData.getProperty("eV" + noOfIVTests) + "and" + testData.getProperty("pV" + noOfIVTests));
+            log.info("testing valid signin credentials: " + testData.getProperty("eV" + inValidTests) + "and" + testData.getProperty("pV" + inValidTests));
 
 
             driver.get(websiteURL);
 
-            driver.findElement(By.id("user_email")).sendKeys(testData.getProperty("eIV" + noOfIVTests));
-            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pIV" + noOfIVTests));
-            driver.findElement(By.id("user_username")).sendKeys(testData.getProperty("uIV" + noOfIVTests));
+            driver.findElement(By.id("user_email")).sendKeys(testData.getProperty("eIV" + inValidTests));
+            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pIV" + inValidTests));
+            driver.findElement(By.id("user_username")).sendKeys(testData.getProperty("uIV" + inValidTests));
             WebElement errorElement = driver.findElement(By.xpath("//*[@id=\"new-user\"]/div[4]/div"));
             try {
                 assertTrue(errorElement.isDisplayed());
                 driver.get(websiteURL);
             } catch (AssertionError e) {
-                System.out.println("Error:Invalid credentials accepted on signup page..!!!!! testcase no: " + noOfIVTests);
+                System.out.println("Error:Invalid credentials accepted on signup page..!!!!! testcase no: " + inValidTests);
             }
-            noOfIVTests--;
+            inValidTests--;
         }
 
     }

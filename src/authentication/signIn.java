@@ -38,19 +38,19 @@ public class signIn {
     @Test
     public void testLogInValid() {
 
-        int noOfVTests = Integer.parseInt(testData.getProperty("noOfVTests"));
-        while (noOfVTests > 0) {
+        int ValidTests = Integer.parseInt(testData.getProperty("noOfVTests"));
+        while (ValidTests > 0) {
 
-            log.info("testing valid signin credentials: " + testData.getProperty("eV" + noOfVTests) + "and" + testData.getProperty("pV" + noOfVTests));
+            log.info("testing valid signin credentials: " + testData.getProperty("eV" + ValidTests) + "and" + testData.getProperty("pV" + ValidTests));
 
             driver.get(websiteURL);
 
-            driver.findElement(By.id("user_login")).sendKeys(testData.getProperty("eV" + noOfVTests));
-            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pV" + noOfVTests));
+            driver.findElement(By.id("user_login")).sendKeys(testData.getProperty("eV" + ValidTests));
+            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pV" + ValidTests));
             driver.findElement(By.id("user_submit")).click();
             System.out.println(driver.getTitle());
             assertEquals("Dashboard | Codecademy", driver.getTitle());
-            noOfVTests--;
+            ValidTests--;
         }
 
     }
@@ -58,21 +58,21 @@ public class signIn {
     @Test
     public void testLogInInValid() {
 
-        int noOfIVTests = Integer.parseInt(testData.getProperty("noOfIVTests"));
-        while (noOfIVTests > 0) {
+        int inValidTests = Integer.parseInt(testData.getProperty("noOfIVTests"));
+        while (inValidTests > 0) {
 
-            log.info("testing invalid signin credentials: " + testData.getProperty("eIV" + noOfIVTests) + "and" + testData.getProperty("pIV" + noOfIVTests));
+            log.info("testing invalid signin credentials: " + testData.getProperty("eIV" + inValidTests) + "and" + testData.getProperty("pIV" + inValidTests));
 
             driver.get(websiteURL);
 
             /*driver.findElement(By.xpath("/*//*[@id=\"user_login\"]")).sendKeys(testData.getProperty("eV" + noOfIVTests));
             driver.findElement(By.xpath("/*//*[@id=\"user_password\"]")).sendKeys(testData.getProperty("pV" + noOfIVTests));*/
 
-            driver.findElement(By.id("user_login")).sendKeys(testData.getProperty("eIV" + noOfIVTests));
-            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pIV" + noOfIVTests));
+            driver.findElement(By.id("user_login")).sendKeys(testData.getProperty("eIV" + inValidTests));
+            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pIV" + inValidTests));
             driver.findElement(By.id("user_submit")).click();
             System.out.println(driver.getTitle());
-            noOfIVTests--;
+            inValidTests--;
         }
         assertEquals("Log in | Codecademy", driver.getTitle());
     }
