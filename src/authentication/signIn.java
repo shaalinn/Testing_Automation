@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class signIn {
 
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(signIn.class);
     private WebDriver driver;
     private String websiteURL;
     private Properties testData;
@@ -39,6 +40,9 @@ public class signIn {
 
         int noOfVTests = Integer.parseInt(testData.getProperty("noOfVTests"));
         while (noOfVTests > 0) {
+
+            log.info("testing valid signin credentials: " + testData.getProperty("eV" + noOfVTests) + "and" + testData.getProperty("pV" + noOfVTests));
+
             driver.get(websiteURL);
 
             driver.findElement(By.id("user_login")).sendKeys(testData.getProperty("eV" + noOfVTests));
@@ -56,16 +60,21 @@ public class signIn {
 
         int noOfIVTests = Integer.parseInt(testData.getProperty("noOfIVTests"));
         while (noOfIVTests > 0) {
+
+            log.info("testing invalid signin credentials: " + testData.getProperty("eIV" + noOfIVTests) + "and" + testData.getProperty("pIV" + noOfIVTests));
+
             driver.get(websiteURL);
 
-            driver.findElement(By.id("user_login")).sendKeys(testData.getProperty("eV" + noOfIVTests));
-            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pV" + noOfIVTests));
+            /*driver.findElement(By.xpath("/*//*[@id=\"user_login\"]")).sendKeys(testData.getProperty("eV" + noOfIVTests));
+            driver.findElement(By.xpath("/*//*[@id=\"user_password\"]")).sendKeys(testData.getProperty("pV" + noOfIVTests));*/
+
+            driver.findElement(By.id("user_login")).sendKeys(testData.getProperty("eIV" + noOfIVTests));
+            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pIV" + noOfIVTests));
             driver.findElement(By.id("user_submit")).click();
             System.out.println(driver.getTitle());
-            assertEquals("Log In | Codecademy", driver.getTitle());
             noOfIVTests--;
         }
-
+        assertEquals("Log in | Codecademy", driver.getTitle());
     }
 
     @After

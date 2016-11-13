@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class signUp {
 
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(signUp.class);
     private WebDriver driver;
     private String websiteURL;
     private Properties testData;
@@ -42,6 +43,10 @@ public class signUp {
 
         int noOfVTests = Integer.parseInt(testData.getProperty("noOfVTests"));
         while (noOfVTests > 0) {
+
+            log.info("testing valid signUp credentials: " + testData.getProperty("eV" + noOfVTests) + "and" + testData.getProperty("pV" + noOfVTests));
+
+
             driver.get(websiteURL);
 
             driver.findElement(By.id("user_email")).sendKeys(testData.getProperty("eV" + noOfVTests));
@@ -60,6 +65,10 @@ public class signUp {
 
         int noOfIVTests = Integer.parseInt(testData.getProperty("noOfIVTests"));
         while (noOfIVTests > 0) {
+
+            log.info("testing valid signin credentials: " + testData.getProperty("eV" + noOfIVTests) + "and" + testData.getProperty("pV" + noOfIVTests));
+
+
             driver.get(websiteURL);
 
             driver.findElement(By.id("user_email")).sendKeys(testData.getProperty("eIV" + noOfIVTests));
@@ -68,6 +77,7 @@ public class signUp {
             WebElement errorElement = driver.findElement(By.xpath("//*[@id=\"new-user\"]/div[4]/div"));
             try {
                 assertTrue(errorElement.isDisplayed());
+                driver.get(websiteURL);
             } catch (AssertionError e) {
                 System.out.println("Error:Invalid credentials accepted on signup page..!!!!! testcase no: " + noOfIVTests);
             }
