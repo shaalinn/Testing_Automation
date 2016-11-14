@@ -71,7 +71,7 @@ public class homePageTest {
                 driver.navigate().back();
             } catch (NoSuchElementException e) {
                 System.out.println(linkName + ": generated exception");
-                /*driver.get(websiteURL);*/
+
             }
         }
 
@@ -79,7 +79,9 @@ public class homePageTest {
 
     @Test
     public void testImages() {
+
         driver.get(websiteURL);
+
         List<WebElement> images = driver.findElements(By.tagName("img"));
 
         for (WebElement image : images) {
@@ -87,9 +89,9 @@ public class homePageTest {
             String altValue = image.getAttribute("alt");
             if (altValue != null && !altValue.equals("")) {
 
-                System.out.println("Alt found as : " + altValue);
+                System.out.println("Alternative Text Found : " + altValue);
             } else {
-                System.out.println("Missing Alt for src : " + image.getAttribute("src"));
+                System.out.println("Missing Alternative Text For Image Source : " + image.getAttribute("src"));
             }
         }
     }
