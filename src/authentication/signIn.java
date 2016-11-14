@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
@@ -23,6 +24,7 @@ public class signIn {
     private WebDriver driver;
     private String websiteURL;
     private Properties testData;
+    private Random rand;
 
     @Before
     public void beforeTesting() throws IOException {
@@ -33,6 +35,7 @@ public class signIn {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         websiteURL = "https://www.codecademy.com/login";
+        rand = new Random();
     }
 
     @Test
@@ -68,8 +71,8 @@ public class signIn {
             /*driver.findElement(By.xpath("/*//*[@id=\"user_login\"]")).sendKeys(testData.getProperty("eV" + noOfIVTests));
             driver.findElement(By.xpath("/*//*[@id=\"user_password\"]")).sendKeys(testData.getProperty("pV" + noOfIVTests));*/
 
-            driver.findElement(By.id("user_login")).sendKeys(testData.getProperty("eIV" + inValidTests));
-            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pIV" + inValidTests));
+            driver.findElement(By.id("user_login")).sendKeys(testData.getProperty("eIV" + inValidTests) + rand.nextInt(2));
+            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pIV" + inValidTests) + rand.nextInt(2));
             driver.findElement(By.id("user_submit")).click();
             System.out.println(driver.getTitle());
             inValidTests--;

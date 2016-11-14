@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
@@ -25,6 +26,7 @@ public class signUp {
     private WebDriver driver;
     private String websiteURL;
     private Properties testData;
+    private Random rand;
 
     @Before
     public void beforeTesting() throws IOException {
@@ -35,7 +37,7 @@ public class signUp {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         websiteURL = "https://www.codecademy.com/register";
-
+        rand = new Random();
     }
 
     @Test
@@ -71,9 +73,10 @@ public class signUp {
 
             driver.get(websiteURL);
 
-            driver.findElement(By.id("user_email")).sendKeys(testData.getProperty("eIV" + inValidTests));
-            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pIV" + inValidTests));
-            driver.findElement(By.id("user_username")).sendKeys(testData.getProperty("uIV" + inValidTests));
+
+            driver.findElement(By.id("user_email")).sendKeys(testData.getProperty("eIV" + inValidTests) + rand.nextInt(2));
+            driver.findElement(By.id("user_password")).sendKeys(testData.getProperty("pIV" + inValidTests) + rand.nextInt(2));
+            driver.findElement(By.id("user_username")).sendKeys(testData.getProperty("uIV" + inValidTests) + rand.nextInt(2));
             WebElement errorElement = driver.findElement(By.xpath("//*[@id=\"new-user\"]/div[4]/div"));
             try {
                 assertTrue(errorElement.isDisplayed());
